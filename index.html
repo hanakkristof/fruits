@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,57 +9,56 @@
 	<script src="https://cdn.tailwindcss.com"></script>
 
 </head>
+
 <body>
-	
-	<img src="img/bg.jpg" class="absolute -z-50 w-screen h-screen opacity-50 bg-center bg-cover">
-	<div class="relative flex flex-col items-center w-screen">
+	<div class="relative -z-50 bg-[url(./img/bg.jpg)] bg-norepeat h-screen opacity-50 bg-center bg-cover"></div>
+	<div class="absolute top-0 flex flex-col items-center w-screen">
 		<h1 class="text-[5vw] shadow-xl rounded-md p-2 mb-3">Déli gyümölcsök</h1>
 		<p>Melyik a kedvenced?</p>
 
-		<select onchange="select(this)" name="gyumolcs" id="gyumolcs" class="w-[20vw] p-1 bg-gray-800 text-slate-50 opacity-80 text-center rounded-md">
-			<option value="0">válassz egyet!</option>
-
+		<select onchange="select(this)" name="gyumolcs" id="gyumolcs" class="w-[20vw] p-1 m-2 bg-gray-800 text-slate-50 opacity-80 text-center rounded-md">
+			<option id="valaszto" value="x">válassz egyet!</option>
 		</select>
 
-		<div class="w-[50%] h-[250px]">
-			<div class="w-[60%] h-[100%]">
-				<img src="img/citrom.jpg" id="gyumolcskep" class="rounded-md w-[100%] h-[100%]">
+		<div id="hattercucc" class="max-w-[800px] flex-wrap text-black flex">
+			<div class="flex-2 h-[100%] flex">
+				<img id="gyumolcskep" class="rounded-md w-100">
 			</div>
-			
-			<div class="float-right w-[40%]">
-				<h2 class="text-3xl" id="title">Cím</h2>
-				<p class="" id="description">Placeholder.</p>
+
+			<div class="flex-1 min-w-[135px] p-2">
+				<h2 class="text-3xl" id="cim"></h2>
+				<p class="" id="leiras"></p>
 			</div>
 		</div>
 	</div>
 
-	<script src="js.js">
-	function select(selector)
-{
-	let gyumolcs = fruits.find(obj => obj.id == selector.value)
 
-	if (gyumolcs == null)
-	{
-		selector.classList.toggle("hidden") // aaaaaa
-	}
 
-	document.getElementById("title").innerText = gyumolcs.name;
-	document.getElementById("description").innerText = gyumolcs.descr;
-	document.getElementById("gyumolcskep").src = `img/${gyumolcs.image}`;
-}
-function generateSelection()
-{
-	let selector = document.getElementById("gyumolcs")
 
-	fruits.forEach(fruit => {
-		
-		selector.innerHTML += `<option value="${fruit.id}">${fruit.name}</option>`
+	<script src="data_fruits.js"></script>
+	<script>
+		function select(a) {
+			let gyumolcs = fruits.find(obj => obj.id == a.value)
+			if (document.getElementById("valaszto").value % 1 != document.getElementById("valaszto").value) {
+				document.getElementById("cim").innerText = "";
+				document.getElementById("leiras").innerText = "";
+				document.getElementById("gyumolcskep").src = " ";
+				document.getElementById("hattercucc").classList.remove("bg-white")
+			}
+			document.getElementById("cim").innerText = gyumolcs.name;
+			document.getElementById("leiras").innerText = gyumolcs.descr;
+			document.getElementById("gyumolcskep").src = `img/${gyumolcs.image}`;
+			document.getElementById("hattercucc").classList.add("bg-white")
+		}
 
-	});
-}
-
-generateSelection()
-
-</script>
+		function gyumolcsok() {
+			let options = document.getElementById("gyumolcs")
+			fruits.forEach(fruit => {
+				options.innerHTML += `<option value="${fruit.id}">${fruit.name}</option>`
+			})
+		}
+		gyumolcsok()
+	</script>
 </body>
+
 </html>
